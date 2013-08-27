@@ -1,4 +1,0 @@
-requestlogs
-===========
-
-Request Log Middleware
