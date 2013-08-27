@@ -9,10 +9,10 @@ Note: this is work in progress - expect bugs etc
 Requirements
 ===========
 
-pymongo
-celery
-Mongo
-Tested on Django > 1.3
+* pymongo
+* celery
+* Mongo
+* Tested on Django > 1.3
 
 Setup / Installation
 ====================
