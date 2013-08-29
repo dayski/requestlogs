@@ -44,7 +44,7 @@ def write_to_db(request, response_code, start_at, end_at):
         myfunc, myargs, mykwargs = resolve(request.path_info)
 
         # for piston - use handler to extract view / class information
-        if module == 'piston.resource':
+        if myfunc.__module__  == 'piston.resource':
             pfunc = myfunc.handler
             view = '%s.%s' % (pfunc.__module__, pfunc.__class__.__name__)
         else:
