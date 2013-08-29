@@ -16,7 +16,7 @@ setup(
     description='Request Log middleware',
     long_description=readme(),
     install_requires=[
-        "Django >= 1.3.1",
+        "Django >= 1.3.0",
         "pymongo >= 2.5.1",
         "celery",
     ]
