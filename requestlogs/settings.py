@@ -3,6 +3,10 @@ from django.conf import settings
 # set to False to disable logging
 ENABLE_LOGGING = getattr(settings, 'RLOG_ENABLE_LOGGING', True)
 
+# set to False to disable logging of failures to request db into
+# log files
+ADD_LOG_FAILURES = getattr(settings, 'RLOG_ADD_LOG_FAILURES', False)
+
 # app name, this will be used to uniquely identify the collection
 # you may overwrite it by creating RLOG_APP_NAME in settings
 APP_NAME = getattr(settings, 'RLOG_APP_NAME', 'myapp')
@@ -23,6 +27,7 @@ REQUEST_META_KEYS = getattr(settings, 'RLOG_REQUEST_META_KEYS',
                                   'HTTP_HOST',
                                   'HTTP_REFERER',
                                   'HTTP_USER_AGENT',
+                                  'HTTP_X_FORWARDED_FOR',
                                   'QUERY_STRING',
                                   'REMOTE_ADDR',
                                   'REMOTE_HOST',
