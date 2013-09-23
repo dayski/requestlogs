@@ -7,7 +7,7 @@ def readme():
 
 setup(
     name='RequestLogs',
-    version='0.3dev',
+    version='0.4dev',
     author='dayski',
     author_email='kapil@delhivery.com',
     packages=['requestlogs',],

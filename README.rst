@@ -26,7 +26,7 @@ Update settings.py
 * Add 'requestlogs.middleware.RequestLogMiddleware' to MIDDLEWARE_CLASSES after auth
 * Customize the name and mongo connections
     RLOG_APP_NAME = 'myapp'  # used to uniquely identify the collection
-    RLOG_MONGODB_URI = 'mongodb://127.0.0.1:27017/requestlogs_db?w=-1'  # mongodb to capture request logs
+    RLOG_MONGODB_URI = 'mongodb://127.0.0.1:27017/requestlogs_db?w=0'  # mongodb to capture request logs
     # mongodb://[username:password@]host1[:port1][,host2[:port2],...[,hostN[:portN]]][/[database][?options]]
     # refer: http://docs.mongodb.org/manual/reference/connection-string/
 

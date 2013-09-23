@@ -1,3 +1,8 @@
+v0.4dev 23-Sep-2013 Bug fixes, minor enhancements:
+                    convert GET and POST data to dict before saving
+                    disable logging of failures to write to db
+                    capture HTTP_X_FORWARDED_FOR for IPs behind load balancer (ELB)
+                    capture start and end time of request (time object)
 v0.3dev 29-Aug-2013 Bug fix - module name not being captured
 v0.2dev 27-Aug-2013 pypi package files created
 v0.1dev 27-Aug-2013 Initial release 
