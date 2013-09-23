@@ -2,6 +2,7 @@ import datetime
 
 from django.core.urlresolvers import resolve, Resolver404
 from django.http import Http404
+from django.http import QueryDict
 
 from celery import task
 
@@ -34,10 +35,27 @@ def find(*args, **kwargs):
 
 @task
 def write_to_db(request, response_code, start_at, end_at):
+    def clean_request_data(data):
+        """converts GET / POST data to str"""
+        cleaned_data = None
+        if type(data) == QueryDict:
+            try:
+                cleaned_data = data.dict()
+            except AttributeError:
+                # fallback: dict() is supported from 1.4 onwards
+                cleaned_data = dict(data.items())
+        elif hasattr(data, '__iter__'):
+            # for iterable items
+            cleaned_data = dict(data.items())
+
+        return cleaned_data 
+
     # extract specific data from the META KEYS
     r_meta = dict()
     for i in REQUEST_META_KEYS:
-        r_meta[i] = request.META.get(i, None)
+        val = request.META.get(i, None)
+        if val:
+            r_meta[i] = val
 
     # extract the view details, args & kwargs
     try:
@@ -62,11 +80,13 @@ def write_to_db(request, response_code, start_at, end_at):
         'view': view,                    # view name, for perf checks
         'args': list(myargs),            # args & kwargs
         'kwargs': mykwargs,
-        'get': request.GET,              # GET & POST data - raw
-        'post': request.POST,
+        'get': clean_request_data(request.GET),  # GET & POST data - raw
+        'post': clean_request_data(request.POST),
         'meta': r_meta,                  # meta keys
         'status': response_code,         # response status
-        'user': request.user.username,   # logged in user
+        'user': str(request.user),       # logged in user
+        'st': start_at,                  # start time
+        'end': end_at,                   # end time
         't': end_at - start_at,          # time to serve the request
     }
 
