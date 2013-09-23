@@ -4,6 +4,7 @@ from bson import ObjectId
 from pymongo import MongoClient, uri_parser
 from pymongo.errors import ConnectionFailure, InvalidURI, AutoReconnect
 
+from .settings import ADD_LOG_FAILURES
 from .settings import MONGODB_URI
 from .settings import MONGODB_DEFAULT_COLLECTION
 
@@ -95,6 +96,7 @@ class MongoConnection(object):
             self.collection.insert(data, w)
         except (ConnectionFailure, AutoReconnect, InvalidURI), e:
             # fail silently - just log and die ...
-            logging.exception(
-                'Error connection to %s, unable to insert %s' % (
-                    MONGODB_URI, data))
+            if ADD_LOG_FAILURES:
+                logging.exception(
+                    'Error connection to %s, unable to insert %s' % (
+                        MONGODB_URI, data))

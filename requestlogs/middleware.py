@@ -2,7 +2,7 @@ import logging
 import time
 
 from .tasks import write_to_db
-from .settings import ENABLE_LOGGING
+from .settings import ENABLE_LOGGING, ADD_LOG_FAILURES
 
 
 class RequestLogMiddleware(object):
@@ -19,6 +19,7 @@ class RequestLogMiddleware(object):
                 write_to_db(request, response.status_code,
                             self.start_at, time.time())
         except Exception, e:
-            logging.error('Request Log Middleware error %s' % e)
+            if ADD_LOG_FAILURES:
+                logging.error('Request Log Middleware error %s' % e)
 
         return response
