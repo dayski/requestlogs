@@ -2,12 +2,12 @@ from distutils.core import setup
 
 
 def readme():
-        with open('README.rst') as f:
-                    return f.read()
+    with open('README.txt') as f:
+        return f.read()
 
 setup(
     name='RequestLogs',
-    version='0.4dev',
+    version='1.0dev',
     author='dayski',
     author_email='kapil@delhivery.com',
     packages=['requestlogs',],
@@ -19,5 +19,6 @@ setup(
         "Django >= 1.3.0",
         "pymongo >= 2.5.1",
         "celery",
+        "elasticsearch == 1.0.0",
     ]
 )

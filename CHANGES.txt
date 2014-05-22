@@ -1,3 +1,4 @@
+v1.0dev 20-May-2014 Added support for Elastic Search
 v0.4dev 23-Sep-2013 Bug fixes, minor enhancements:
                     convert GET and POST data to dict before saving
                     disable logging of failures to write to db

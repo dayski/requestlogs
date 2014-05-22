@@ -12,6 +12,7 @@ Requirements
 * pymongo
 * celery
 * Mongo
+* Elasti Search
 * Tested on Django > 1.3
 
 Setup / Installation
@@ -23,12 +24,29 @@ Setup / Installation
 Update settings.py
 
 * Add app 'requestlogs' to your INSTALLED_APPS
+
 * Add 'requestlogs.middleware.RequestLogMiddleware' to MIDDLEWARE_CLASSES after auth
-* Customize the name and mongo connections
-    RLOG_APP_NAME = 'myapp'  # used to uniquely identify the collection
+
+* Set the app name, this will be used in the collection / index etc
+    RLOG_APP_NAME = 'app'  # used to uniquely identify the collection
+
+* Set the engine / db where you want the logs to be captured
+    RLOG_ENGINE = 'MONGO' or RLOG_ENGINE = 'ELASTICSEARCH'
+
+* For MONGO: Customize the name and mongo connections
     RLOG_MONGODB_URI = 'mongodb://127.0.0.1:27017/requestlogs_db?w=0'  # mongodb to capture request logs
     # mongodb://[username:password@]host1[:port1][,host2[:port2],...[,hostN[:portN]]][/[database][?options]]
     # refer: http://docs.mongodb.org/manual/reference/connection-string/
+
+    - The collection name will be set to {RLOG_APP_NAME}_request_logs
+
+* For ELASTICSEARCH: Customize the name and connections
+    ELASTICSEARCH_CONN = [{'host': 'localhost', 'port': 9200}, ]
+    RLOG_ELASTICSEARCH_TTL = "90d"  # set the TTL for auto expiry
+    
+    - The document type will be set to {RLOG_APP_NAME}-requestlogs
+    - The index name will be set to idx-{RLOG_APP_NAME}-requestlogs
+    - For Kibana - a customized dashboard has been created, change the type and index to use it
 
 ToDos
 =====
